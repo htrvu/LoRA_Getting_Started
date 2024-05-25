@@ -27,7 +27,7 @@ Before starting:
 Note:
 - Kohya sd-scripts support 3 types of fine-tuning: 
     - Textual Inversion (train only the new added text embedding vectors)
-    - DreamBooth (train tne whole network and the new added text embedding vectors)
+    - DreamBooth (train the whole network and the new added text embedding vectors)
     - LoRA (train parts of the network by using LoRA technique) **<--- What we care about.**
 - For **DreamBooth + LoRA**, which is always applied in research paper, this approch will be not suitable.
 
@@ -105,9 +105,8 @@ accelerate launch \
 ### 1.4. Inference
 
 As I mentioned above, the trained LoRA weights can be test in **Stable Diffusion WebUI A111** and diffusers.
-We can also test them with diffusers library:
 
-Basic usage:
+Basic usage with diffusers:
 ```python
 from diffusers import AutoPipelineForText2Image
 import torch
