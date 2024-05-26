@@ -15,6 +15,7 @@ In this tutorial, I will show you how to get started with LoRA training for Stab
     - Cons: 
         - The output we get might be slightly worse than diffusers and kohya scripts (technical details)
         - Can not use in A1111, can not use in diffusers "directly" (i.e. we need to rewrite the pipeline ourselves)
+        - Need a deep understanding about the components of SD
     
 Before starting:
 - You should have a machine with **cuda >= 11.8** installed and a GPU with at least 8 GB of memory. In the following example, I perform on cuda version 12.1.
@@ -108,11 +109,11 @@ As I mentioned above, the trained LoRA weights can be test in **Stable Diffusion
 
 Basic usage with diffusers:
 ```python
-from diffusers import AutoPipelineForText2Image
+from diffusers import StableDiffusionPipeline
 import torch
 import xformers
 
-pipeline = AutoPipelineForText2Image.from_pretrained("ckpt/v1-5-pruned-emaonly.safetensors",
+pipeline = StableDiffusionPipeline.from_single_file("ckpt/v1-5-pruned-emaonly.safetensors",
                                                     torch_dtype=torch.float16).to("cuda")
 pipe.enable_xformers_memory_efficient_attention()
 pipeline.load_lora_weights("path/to/lora/weights", weight_name="lora_weight_name.safetensors")
